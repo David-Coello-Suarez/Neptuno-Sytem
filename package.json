@@ -22,5 +22,23 @@
   "bugs": {
     "url": "hhttps://github.com/David-Coello-Suarez/Neptuno-Sytem/issues"
   },
-  "homepage": "hhttps://github.com/David-Coello-Suarez/Neptuno-Sytem#readme"
+  "homepage": "hhttps://github.com/David-Coello-Suarez/Neptuno-Sytem#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.36.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "dotenv": "^16.4.1",
+    "eslint": "^8.56.0",
+    "ts-node": "^10.9.2"
+  }
 }
