@@ -1,0 +1,26 @@
+{
+  "name": "neptuno-sytem",
+  "version": "1.0.0",
+  "description": "Sistema backend para la gestión del software neptuno",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "dev": "nodemon ./src/index.ts",
+    "postinstall": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+hhttps://github.com/David-Coello-Suarez/Neptuno-Sytem.git"
+  },
+  "keywords": [
+    "Clinica",
+    "Hospitales",
+    "Médicos"
+  ],
+  "author": "David Coello S.",
+  "license": "ISC",
+  "bugs": {
+    "url": "hhttps://github.com/David-Coello-Suarez/Neptuno-Sytem/issues"
+  },
+  "homepage": "hhttps://github.com/David-Coello-Suarez/Neptuno-Sytem#readme"
+}
