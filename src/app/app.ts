@@ -26,11 +26,11 @@ class Server {
 
       console.log('Established connection')
 
-      // if (String(process.env.AMBI_APPL) === 'dev') {
-      database.sync({ force: true })
-      // } else {
-      // database.sync({ alter: true })
-      // }
+      if (String(process.env.AMBI_APPL) === 'dev') {
+        database.sync({ force: true })
+      } else {
+        database.sync({ alter: true })
+      }
 
       // MIDDLEWARES
       this.middlewares()
