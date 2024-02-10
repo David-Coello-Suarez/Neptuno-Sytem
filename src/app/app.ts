@@ -9,7 +9,7 @@ dotenv.config()
 
 class Server {
   private app: Application
-  private version: string = process.env.VERSION || 'V1'
+  private version: string = process.env.VERSION || 'v1'
   private ruta: string = 'api'
   private puerto: number
 
@@ -50,7 +50,7 @@ class Server {
   }
 
   private router(): void {
-    this.app.use(`/${this.version}/${this.ruta}/`, routerApp)
+    this.app.use(`/${this.version}/${this.ruta}`, routerApp)
   }
 
   listening(): void {
