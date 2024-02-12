@@ -1,4 +1,4 @@
-import { DataTypes, NOW } from 'sequelize'
+import { DataTypes } from 'sequelize'
 import { database } from '../database'
 import { irolusu } from '../interfaces'
 // import { Estado } from './'
@@ -34,7 +34,7 @@ export const Rolusu = database.define<irolusu>(
       allowNull: false,
       type: DataTypes.DATE,
       comment: 'FECHA CREACIÓN',
-      defaultValue: NOW(),
+      defaultValue: new Date(),
     },
 
     rolusu_usuact: {

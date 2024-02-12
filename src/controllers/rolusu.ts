@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { NOW, Op, WhereOptions } from 'sequelize'
+import { Op, WhereOptions } from 'sequelize'
 import { database } from '../database'
 import { Rolusu } from '../models'
 import { irolusu } from '../interfaces'
@@ -116,6 +116,7 @@ const postRolusu = async (req: Request, res: Response) => {
       data: {},
     })
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       estado: 3,
       mensaje: 'Se a producido un error',
@@ -127,7 +128,7 @@ const postRolusu = async (req: Request, res: Response) => {
 const putRolusu = async (req: Request, res: Response) => {
   const transaction = await database.transaction()
   try {
-    const rolusu_rolusu = Number(req.query.id)
+    const rolusu_rolusu = Number(req.params.id)
 
     const rolusu: irolusu = req.body
 
@@ -149,7 +150,7 @@ const putRolusu = async (req: Request, res: Response) => {
     }
 
     rolusu.rolusu_usuact = 1
-    rolusu.rolusu_fecact = NOW()
+    rolusu.rolusu_fecact = new Date()
 
     const crearRol: WhereOptions<irolusu> = { ...rolusu }
 
@@ -162,6 +163,7 @@ const putRolusu = async (req: Request, res: Response) => {
       data: {},
     })
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       estado: 3,
       mensaje: 'Se a producido un error',
@@ -173,7 +175,7 @@ const putRolusu = async (req: Request, res: Response) => {
 const patchRolusu = async (req: Request, res: Response) => {
   const transaction = await database.transaction()
   try {
-    const rolusu_rolusu = Number(req.query.id)
+    const rolusu_rolusu = Number(req.params.id)
 
     const rolusu: irolusu = req.body
 
@@ -195,7 +197,7 @@ const patchRolusu = async (req: Request, res: Response) => {
     }
 
     rolusu.rolusu_usuact = 1
-    rolusu.rolusu_fecact = NOW()
+    rolusu.rolusu_fecact = new Date()
 
     const crearRol: WhereOptions<irolusu> = { ...rolusu }
 
@@ -219,7 +221,7 @@ const patchRolusu = async (req: Request, res: Response) => {
 const deleteRolusu = async (req: Request, res: Response) => {
   const transaction = await database.transaction()
   try {
-    const rolusu_rolusu = Number(req.query.id)
+    const rolusu_rolusu = Number(req.params.id)
 
     const rolusu: irolusu = req.body
 
@@ -242,7 +244,7 @@ const deleteRolusu = async (req: Request, res: Response) => {
 
     rolusu.rolusu_estado = 'E'
     rolusu.rolusu_usueli = 1
-    rolusu.rolusu_feceli = NOW()
+    rolusu.rolusu_feceli = new Date()
 
     const crearRol: WhereOptions<irolusu> = { ...rolusu }
 
