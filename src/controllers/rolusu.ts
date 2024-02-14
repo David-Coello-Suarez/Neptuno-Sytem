@@ -10,8 +10,20 @@ const getRolusu = async (req: Request, res: Response) => {
       limit = Number(req.query.limite) || 10,
       offset = (pagina - 1) * limit
 
-    const where: WhereOptions<irolusu> = {
+    let where: WhereOptions<irolusu> = {
       rolusu_estado: { [Op.in]: ['A', 'I'] },
+    }
+
+    const query = req.query.query
+
+    if (query) {
+      where = {
+        ...where,
+        [Op.or]: [
+          { rolusu_descri: { [Op.like]: `%${query.toString().toLowerCase()}%` } },
+          { rolusu_abrevi: { [Op.like]: `%${query.toString().toLowerCase()}%` } },
+        ],
+      }
     }
 
     const [total_rolusu, rolusu] = await Promise.all([
