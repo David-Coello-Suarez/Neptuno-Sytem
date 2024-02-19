@@ -29,7 +29,8 @@
     "express-validator": "^7.0.1",
     "morgan": "^1.10.0",
     "mysql2": "^3.9.1",
-    "sequelize": "^6.36.0"
+    "sequelize": "^6.36.0",
+    "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -39,6 +40,7 @@
     "@typescript-eslint/parser": "^6.20.0",
     "dotenv": "^16.4.1",
     "eslint": "^8.56.0",
+    "sequelize-auto": "^0.8.8",
     "ts-node": "^10.9.2"
   }
 }

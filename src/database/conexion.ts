@@ -1,5 +1,6 @@
-import { Dialect, Sequelize } from 'sequelize'
+import { Sequelize } from 'sequelize-typescript'
 import * as dotenv from 'dotenv'
+import { Dialect } from 'sequelize'
 
 dotenv.config()
 
@@ -9,17 +10,9 @@ const database = new Sequelize({
   username: process.env.DDBB_USER,
   password: process.env.DDBB_PASS,
   database: process.env.DDBB_DDBB,
-  logging: Boolean(String(process.env.AMBI_APPL) === 'dev'),
-  pool: {
-    max: 5,
-    min: 1,
-    acquire: 30000,
-    idle: 10000,
-  },
+  models: [__dirname + '/models'], // Directorio donde se generan los modelos
   define: {
-    charset: 'utf8',
-    freezeTableName: true,
-    timestamps: false,
+    timestamps: false, // Desactivar campos createdAt y updatedAt
   },
   timezone: '-05:00',
 })
