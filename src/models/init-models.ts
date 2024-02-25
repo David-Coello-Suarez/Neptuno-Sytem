@@ -7,6 +7,10 @@ import { tb_estado as _tb_estado } from "./tb_estado";
 import type { tb_estadoAttributes, tb_estadoCreationAttributes } from "./tb_estado";
 import { tb_rolusu as _tb_rolusu } from "./tb_rolusu";
 import type { tb_rolusuAttributes, tb_rolusuCreationAttributes } from "./tb_rolusu";
+import { tb_sideba as _tb_sideba } from "./tb_sideba";
+import type { tb_sidebaAttributes, tb_sidebaCreationAttributes } from "./tb_sideba";
+import { tb_sidrol as _tb_sidrol } from "./tb_sidrol";
+import type { tb_sidrolAttributes, tb_sidrolCreationAttributes } from "./tb_sidrol";
 import { tb_sucurs as _tb_sucurs } from "./tb_sucurs";
 import type { tb_sucursAttributes, tb_sucursCreationAttributes } from "./tb_sucurs";
 import { vw_compan as _vw_compan } from "./vw_compan";
@@ -21,6 +25,8 @@ export {
   _tb_compan_sucurs as tb_compan_sucurs,
   _tb_estado as tb_estado,
   _tb_rolusu as tb_rolusu,
+  _tb_sideba as tb_sideba,
+  _tb_sidrol as tb_sidrol,
   _tb_sucurs as tb_sucurs,
   _vw_compan as vw_compan,
   _vw_rolusu as vw_rolusu,
@@ -36,6 +42,10 @@ export type {
   tb_estadoCreationAttributes,
   tb_rolusuAttributes,
   tb_rolusuCreationAttributes,
+  tb_sidebaAttributes,
+  tb_sidebaCreationAttributes,
+  tb_sidrolAttributes,
+  tb_sidrolCreationAttributes,
   tb_sucursAttributes,
   tb_sucursCreationAttributes,
   vw_companAttributes,
@@ -51,6 +61,8 @@ export function initModels(sequelize: Sequelize) {
   const tb_compan_sucurs = _tb_compan_sucurs.initModel(sequelize);
   const tb_estado = _tb_estado.initModel(sequelize);
   const tb_rolusu = _tb_rolusu.initModel(sequelize);
+  const tb_sideba = _tb_sideba.initModel(sequelize);
+  const tb_sidrol = _tb_sidrol.initModel(sequelize);
   const tb_sucurs = _tb_sucurs.initModel(sequelize);
   const vw_compan = _vw_compan.initModel(sequelize);
   const vw_rolusu = _vw_rolusu.initModel(sequelize);
@@ -62,6 +74,10 @@ export function initModels(sequelize: Sequelize) {
   tb_estado.hasMany(tb_compan, { as: "tb_compans", foreignKey: "compan_estado"});
   tb_sucurs.belongsTo(tb_estado, { as: "sucurs_estado_tb_estado", foreignKey: "sucurs_estado"});
   tb_estado.hasMany(tb_sucurs, { as: "tb_sucurs", foreignKey: "sucurs_estado"});
+  tb_sidrol.belongsTo(tb_rolusu, { as: "rolusu_rolusu_tb_rolusu", foreignKey: "rolusu_rolusu"});
+  tb_rolusu.hasMany(tb_sidrol, { as: "tb_sidrols", foreignKey: "rolusu_rolusu"});
+  tb_sidrol.belongsTo(tb_sideba, { as: "sideba_sideba_tb_sideba", foreignKey: "sideba_sideba"});
+  tb_sideba.hasMany(tb_sidrol, { as: "tb_sidrols", foreignKey: "sideba_sideba"});
   tb_compan_sucurs.belongsTo(tb_sucurs, { as: "sucurs_sucrs_tb_sucur", foreignKey: "sucurs_sucrs"});
   tb_sucurs.hasMany(tb_compan_sucurs, { as: "tb_compan_sucurs", foreignKey: "sucurs_sucrs"});
 
@@ -70,6 +86,8 @@ export function initModels(sequelize: Sequelize) {
     tb_compan_sucurs: tb_compan_sucurs,
     tb_estado: tb_estado,
     tb_rolusu: tb_rolusu,
+    tb_sideba: tb_sideba,
+    tb_sidrol: tb_sidrol,
     tb_sucurs: tb_sucurs,
     vw_compan: vw_compan,
     vw_rolusu: vw_rolusu,

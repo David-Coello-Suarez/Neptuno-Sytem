@@ -33,7 +33,7 @@ export class vw_rolusu extends Model<vw_rolusuAttributes, vw_rolusuCreationAttri
   static initModel(sequelize: Sequelize.Sequelize): typeof vw_rolusu {
     return vw_rolusu.init({
     rolusu_rolusu: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
     },

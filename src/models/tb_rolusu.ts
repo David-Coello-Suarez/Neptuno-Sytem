@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { tb_sidrol, tb_sidrolId } from './tb_sidrol';
 
 export interface tb_rolusuAttributes {
   rolusu_rolusu: number;
@@ -31,12 +32,24 @@ export class tb_rolusu extends Model<tb_rolusuAttributes, tb_rolusuCreationAttri
   rolusu_usueli?: number;
   rolusu_feceli?: Date;
 
+  // tb_rolusu hasMany tb_sidrol via rolusu_rolusu
+  tb_sidrols!: tb_sidrol[];
+  getTb_sidrols!: Sequelize.HasManyGetAssociationsMixin<tb_sidrol>;
+  setTb_sidrols!: Sequelize.HasManySetAssociationsMixin<tb_sidrol, tb_sidrolId>;
+  addTb_sidrol!: Sequelize.HasManyAddAssociationMixin<tb_sidrol, tb_sidrolId>;
+  addTb_sidrols!: Sequelize.HasManyAddAssociationsMixin<tb_sidrol, tb_sidrolId>;
+  createTb_sidrol!: Sequelize.HasManyCreateAssociationMixin<tb_sidrol>;
+  removeTb_sidrol!: Sequelize.HasManyRemoveAssociationMixin<tb_sidrol, tb_sidrolId>;
+  removeTb_sidrols!: Sequelize.HasManyRemoveAssociationsMixin<tb_sidrol, tb_sidrolId>;
+  hasTb_sidrol!: Sequelize.HasManyHasAssociationMixin<tb_sidrol, tb_sidrolId>;
+  hasTb_sidrols!: Sequelize.HasManyHasAssociationsMixin<tb_sidrol, tb_sidrolId>;
+  countTb_sidrols!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof tb_rolusu {
     return tb_rolusu.init({
     rolusu_rolusu: {
       autoIncrement: true,
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
