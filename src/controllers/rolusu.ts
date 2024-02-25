@@ -50,7 +50,7 @@ const getRolusu = async (req: Request, res: Response) => {
     ])
 
     if (total_rolusu == 0) {
-      return res.status(404).json({
+      return res.status(200).json({
         estado: 2,
         mensaje: 'No hay datos para mostrar',
         data: {},
@@ -143,10 +143,10 @@ const postRolusu = async (req: Request, res: Response) => {
       rolusu_estado,
       [Op.or]: [
         Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('rolusu_descri')), {
-          [Op.like]: `%${rolusu_descri.toLowerCase()}%`,
+          [Op.eq]: rolusu_descri.toLowerCase(),
         }),
         Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('rolusu_abrevi')), {
-          [Op.like]: `%${rolusu_abrevi?.toLowerCase()}%`,
+          [Op.eq]: rolusu_abrevi?.toLowerCase(),
         }),
       ],
     }
