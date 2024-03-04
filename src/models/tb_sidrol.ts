@@ -7,17 +7,27 @@ export interface tb_sidrolAttributes {
   sidrol_sidrol: number;
   sideba_sideba: number;
   rolusu_rolusu: number;
+  flg_actualizar: string;
+  flg_eliminar: string;
+  flg_borrar: string;
+  flg_insertar: string;
+  flg_buscar: string;
 }
 
 export type tb_sidrolPk = "sidrol_sidrol";
 export type tb_sidrolId = tb_sidrol[tb_sidrolPk];
-export type tb_sidrolOptionalAttributes = "sidrol_sidrol";
+export type tb_sidrolOptionalAttributes = "sidrol_sidrol" | "flg_actualizar" | "flg_eliminar" | "flg_borrar" | "flg_insertar" | "flg_buscar";
 export type tb_sidrolCreationAttributes = Optional<tb_sidrolAttributes, tb_sidrolOptionalAttributes>;
 
 export class tb_sidrol extends Model<tb_sidrolAttributes, tb_sidrolCreationAttributes> implements tb_sidrolAttributes {
   sidrol_sidrol!: number;
   sideba_sideba!: number;
   rolusu_rolusu!: number;
+  flg_actualizar!: string;
+  flg_eliminar!: string;
+  flg_borrar!: string;
+  flg_insertar!: string;
+  flg_buscar!: string;
 
   // tb_sidrol belongsTo tb_rolusu via rolusu_rolusu
   rolusu_rolusu_tb_rolusu!: tb_rolusu;
@@ -53,6 +63,31 @@ export class tb_sidrol extends Model<tb_sidrolAttributes, tb_sidrolCreationAttri
         model: 'tb_rolusu',
         key: 'rolusu_rolusu'
       }
+    },
+    flg_actualizar: {
+      type: DataTypes.CHAR(1),
+      allowNull: false,
+      defaultValue: "0"
+    },
+    flg_eliminar: {
+      type: DataTypes.CHAR(1),
+      allowNull: false,
+      defaultValue: "0"
+    },
+    flg_borrar: {
+      type: DataTypes.CHAR(1),
+      allowNull: false,
+      defaultValue: "0"
+    },
+    flg_insertar: {
+      type: DataTypes.CHAR(1),
+      allowNull: false,
+      defaultValue: "0"
+    },
+    flg_buscar: {
+      type: DataTypes.CHAR(1),
+      allowNull: false,
+      defaultValue: "0"
     }
   }, {
     sequelize,
@@ -68,17 +103,17 @@ export class tb_sidrol extends Model<tb_sidrolAttributes, tb_sidrolCreationAttri
         ]
       },
       {
-        name: "fk_sidrol_to_sideba_idx",
-        using: "BTREE",
-        fields: [
-          { name: "sideba_sideba" },
-        ]
-      },
-      {
         name: "fk_sidrol_to_rolusu_idx",
         using: "BTREE",
         fields: [
           { name: "rolusu_rolusu" },
+        ]
+      },
+      {
+        name: "FK_SIDROL_to_sidgru_idx",
+        using: "BTREE",
+        fields: [
+          { name: "sideba_sideba" },
         ]
       },
     ]

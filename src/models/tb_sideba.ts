@@ -1,14 +1,15 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { tb_sideba_grupo, tb_sideba_grupoId } from './tb_sideba_grupo';
 import type { tb_sidrol, tb_sidrolId } from './tb_sidrol';
 
 export interface tb_sidebaAttributes {
   sideba_sideba: number;
+  sideba_sidgru: number;
   sideba_nombre: string;
   sideba_iconox?: string;
+  sideba_ventan: string;
   sideba_ordvis: number;
-  sideba_idpadr: number;
-  sideba_ventan?: string;
   sideba_estado: 'A' | 'I' | 'E';
   sideba_usucre: number;
   sideba_feccre: Date;
@@ -20,16 +21,16 @@ export interface tb_sidebaAttributes {
 
 export type tb_sidebaPk = "sideba_sideba";
 export type tb_sidebaId = tb_sideba[tb_sidebaPk];
-export type tb_sidebaOptionalAttributes = "sideba_sideba" | "sideba_iconox" | "sideba_idpadr" | "sideba_ventan" | "sideba_estado" | "sideba_feccre" | "sideba_usuact" | "sideba_fecact" | "sideba_usueli" | "sideba_feceli";
+export type tb_sidebaOptionalAttributes = "sideba_sideba" | "sideba_iconox" | "sideba_estado" | "sideba_feccre" | "sideba_usuact" | "sideba_fecact" | "sideba_usueli" | "sideba_feceli";
 export type tb_sidebaCreationAttributes = Optional<tb_sidebaAttributes, tb_sidebaOptionalAttributes>;
 
 export class tb_sideba extends Model<tb_sidebaAttributes, tb_sidebaCreationAttributes> implements tb_sidebaAttributes {
   sideba_sideba!: number;
+  sideba_sidgru!: number;
   sideba_nombre!: string;
   sideba_iconox?: string;
+  sideba_ventan!: string;
   sideba_ordvis!: number;
-  sideba_idpadr!: number;
-  sideba_ventan?: string;
   sideba_estado!: 'A' | 'I' | 'E';
   sideba_usucre!: number;
   sideba_feccre!: Date;
@@ -50,6 +51,11 @@ export class tb_sideba extends Model<tb_sidebaAttributes, tb_sidebaCreationAttri
   hasTb_sidrol!: Sequelize.HasManyHasAssociationMixin<tb_sidrol, tb_sidrolId>;
   hasTb_sidrols!: Sequelize.HasManyHasAssociationsMixin<tb_sidrol, tb_sidrolId>;
   countTb_sidrols!: Sequelize.HasManyCountAssociationsMixin;
+  // tb_sideba belongsTo tb_sideba_grupo via sideba_sidgru
+  sideba_sidgru_tb_sideba_grupo!: tb_sideba_grupo;
+  getSideba_sidgru_tb_sideba_grupo!: Sequelize.BelongsToGetAssociationMixin<tb_sideba_grupo>;
+  setSideba_sidgru_tb_sideba_grupo!: Sequelize.BelongsToSetAssociationMixin<tb_sideba_grupo, tb_sideba_grupoId>;
+  createSideba_sidgru_tb_sideba_grupo!: Sequelize.BelongsToCreateAssociationMixin<tb_sideba_grupo>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof tb_sideba {
     return tb_sideba.init({
@@ -59,26 +65,29 @@ export class tb_sideba extends Model<tb_sidebaAttributes, tb_sidebaCreationAttri
       allowNull: false,
       primaryKey: true
     },
+    sideba_sidgru: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'tb_sideba_grupo',
+        key: 'sidgru_sidgru'
+      }
+    },
     sideba_nombre: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
     sideba_iconox: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(25),
       allowNull: true
+    },
+    sideba_ventan: {
+      type: DataTypes.STRING(50),
+      allowNull: false
     },
     sideba_ordvis: {
       type: DataTypes.INTEGER,
       allowNull: false
-    },
-    sideba_idpadr: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    },
-    sideba_ventan: {
-      type: DataTypes.STRING(50),
-      allowNull: true
     },
     sideba_estado: {
       type: DataTypes.ENUM('A','I','E'),
@@ -121,6 +130,13 @@ export class tb_sideba extends Model<tb_sidebaAttributes, tb_sidebaCreationAttri
         using: "BTREE",
         fields: [
           { name: "sideba_sideba" },
+        ]
+      },
+      {
+        name: "fk_sideba_to_sidgru_idx",
+        using: "BTREE",
+        fields: [
+          { name: "sideba_sidgru" },
         ]
       },
     ]

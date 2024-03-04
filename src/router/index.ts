@@ -1,3 +1,4 @@
 import rrolusu from './rrolusu'
+import rsideba from './rsideba'
 
-export { rrolusu }
+export { rrolusu, rsideba }
